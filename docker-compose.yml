@@ -16,14 +16,14 @@ services:
       - 'redis:/data'
 
   website:
+    build: .
     depends_on:
       - 'postgres'
       - 'redis'
-    build: .
     ports:
       - '3000:3000'
     volumes:
-      - '.:/app'
+      - '.:/railsapp'
     env_file:
       - '.env'
 
@@ -34,7 +34,7 @@ services:
     build: .
     command: sidekiq -C config/sidekiq.yml
     volumes:
-      - '.:/app'
+      - '.:/railsapp'
     env_file:
       - '.env'
 
@@ -42,11 +42,11 @@ services:
     depends_on:
       - 'redis'
     build: .
-    command: puma -p 28080 config/cable.config.ru
+    command: puma -p 28080 -C config/cable.config.ru
     ports:
       - '28080:28080'
     volumes:
-      - '.:/app'
+      - '.:/railsapp'
     env_file:
       - '.env'
 
