@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  resources :incidents
+  get '/', to: 'incidents#index'
 end

@@ -1,1 +1,35 @@
-hello
+<h1>System status report</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Title</th>
+      <th class="align-center">Date</th>
+      <th class="align-center">Resolved?</th>
+    </tr>
+  </thead>
+<% @incidents.each do |incident| %>
+  <tr>
+    <td>
+      #<%= incident.id %>
+    </td>
+    <td>
+      <%= incident.title %>
+    </td>
+    <td class="align-center">
+      <%= incident.occurred_at %>
+    </td>
+    <td class="align-center">
+      <%= incident.is_resolved ? 'Yes' : 'No' %>
+    </td>
+  </tr>
+<% end %>
+  <tfoot>
+    <tr>
+      <td colspan="4">
+        <%= @incidents.length %> incidents in total
+      </td>
+    </tr>
+  </tfoot>
+<table>
