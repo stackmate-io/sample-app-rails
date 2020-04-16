@@ -3,9 +3,9 @@ version: '2'
 
 services:
   postgres:
-    image: 'postgres:10.3-alpine'
+    image: postgres:10.3-alpine
     volumes:
-      - 'postgres:/var/lib/postgresql/data'
+      - postgres:/var/lib/postgresql/data
     env_file:
       - '.env'
 
@@ -13,42 +13,60 @@ services:
     image: 'redis:4.0-alpine'
     command: redis-server
     volumes:
-      - 'redis:/data'
+      - redis:/data
 
   website:
     build: .
+    command: rails server -b 0.0.0.0 -p 3000 -P /tmp/server.pid
     depends_on:
-      - 'postgres'
-      - 'redis'
+      - postgres
+      - redis
     ports:
-      - '3000:3000'
+      - 3000:3000
     volumes:
-      - '.:/railsapp'
+      - .:/railsapp
     env_file:
-      - '.env'
+      - .env
+
+  webpacker:
+    build: .
+    command: /bin/sh -c './bin/yarn && ./bin/webpack-dev-server'
+    ports:
+      - "3035:3035"
+    expose:
+      - "3035"
+    volumes:
+      - .:/railsapp
+    env_file:
+      - .env
+    environment:
+      WEBPACKER_DEV_SERVER_HOST: 0.0.0.0
+      WEBPACKER_DEV_SERVER_INLINE: 'true'
+      WEBPACKER_DEV_SERVER_HOT: 'true'
+      WEBPACKER_DEV_SERVER_PORT: 3035
 
   sidekiq:
     depends_on:
-      - 'postgres'
-      - 'redis'
+      - postgres
+      - redis
     build: .
     command: sidekiq -C config/sidekiq.yml
     volumes:
-      - '.:/railsapp'
+      - .:/railsapp
     env_file:
-      - '.env'
+      - .env
 
   cable:
     depends_on:
-      - 'redis'
+      - redis
     build: .
     command: puma -p 28080 config/cable.config.ru
     ports:
-      - '28080:28080'
+      - 28080:28080
     volumes:
-      - '.:/railsapp'
+      - .:/railsapp
     env_file:
-      - '.env'
+      - .env
 
 volumes:
   redis:

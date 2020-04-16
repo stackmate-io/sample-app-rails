@@ -7,11 +7,9 @@ RUN mkdir /railsapp
 WORKDIR /railsapp
 
 COPY Gemfile Gemfile.lock ./
-COPY package.json yarn.lock ./
-
 RUN bundle install --binstubs
 
 COPY . .
 
-CMD puma -C config/puma.rb
+COPY package.json yarn.lock ./
 RUN yarn install --check-files
