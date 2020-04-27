@@ -56,3 +56,29 @@ td, th {
 tfoot td {
     text-align: right;
 }
+
+.new-incidents {
+  margin-bottom: 50px;
+}
+
+.new-incidents form {
+  display: none;
+}
+
+.new-incidents .status-line + form {
+  display: block;
+  text-align: right;
+  margin-top: 30px;
+}
+
+.new-incidents .status-line {
+  display: flex;
+}
+
+.new-incidents .status-line > div {
+  flex: 1;
+}
+
+.new-incidents .status-line > small {
+  color: #666;
+}

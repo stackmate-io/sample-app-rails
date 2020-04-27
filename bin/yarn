@@ -1,5 +1,8 @@
 #!/usr/bin/env ruby
 APP_ROOT = File.expand_path('..', __dir__)
+
+puts ENV.inspect
+
 Dir.chdir(APP_ROOT) do
   begin
     exec "yarnpkg", *ARGV

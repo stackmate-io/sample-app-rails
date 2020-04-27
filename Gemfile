@@ -23,6 +23,8 @@ gem 'redis', '~> 4.0'
 gem 'sidekiq'
 # Let all hell break loose
 gem 'tzinfo-data'
+# Send email via SES
+gem 'aws-ses', require: 'aws/ses'
 
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

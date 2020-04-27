@@ -1,5 +1,11 @@
 <h1>System status report</h1>
 
+<div class="new-incidents" data-role="new-incidents">
+  <%= form_with(url: '/report', method: 'post') do %>
+    <%= submit_tag('Notify the SRE') %>
+  <% end %>
+</div>
+
 <table>
   <thead>
     <tr>
@@ -33,3 +39,7 @@
     </tr>
   </tfoot>
 <table>
+
+<p>
+  Last fetch from remote service: <%= distance_of_time_in_words(Time.now, @last_fetch) %> ago
+</p>

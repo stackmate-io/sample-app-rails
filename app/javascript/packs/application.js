@@ -15,3 +15,6 @@ require("channels")
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
+console.log(
+  '%c[Stackmate sample app] Javascript compiled and included in the document', 'color:blue',
+);
