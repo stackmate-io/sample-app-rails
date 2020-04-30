@@ -37,12 +37,17 @@ production:
   environment:
     CDN_HOST: cdn.ezploy.eu
     RAILS_ENV: production
+    SECRET_KEY_BASE: 78e078fd223a2904d26de6b1d46a8418
+
+  # configfiles:
+  #   - source: production.master.key
+  #     target: config/master.key
+  #     application: true
 
   # deployment pipeline
   pipeline:
     build:
-      - ./bin/bundle install --binstubs --deployment --without development test
-      - ./bin/yarn install --check-files
+      - ./bin/bundle install --deployment --without development test
       - ./bin/rails assets:precompile
     db:migrate:
       - ./bin/rails db:migrate
@@ -61,7 +66,7 @@ production:
   services:
     - name: rails-app-server
       type: application
-      size: t2.nano
+      size: t2.micro
       dependencies:
         - type: ruby
           version: 2.5.8
@@ -85,6 +90,7 @@ production:
         POSTGRES_USER: "{{username}}"
         POSTGRES_HOST: "{{host}}"
         POSTGRES_PASSWORD: "{{password}}"
+        POSTGRES_PORT: "{{port}}"
 
     - name: rails-redis-cache
       type: redis
