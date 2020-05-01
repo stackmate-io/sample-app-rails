@@ -98,6 +98,7 @@ production:
       environment:
         SES_ACCESS_KEY_ID: '{{username}}'
         SES_SECRET_ACCESS_KEY: '{{secret}}'
+        SES_ENDPOINT: '{{host}}'
 
     - type: elasticstorage
       name: rails-assets-ezploy-eu
@@ -105,11 +106,11 @@ production:
       cdn: true
       domain: cdn.ezploy.eu
 
-notifications:
-  - type: email
-    targets:
-      - stackmateuser@mailinator.com
+# notifications:
+#   - type: email
+#     targets:
+#       - stackmateuser@mailinator.com
 
-  - type: slack
-    targets:
-      - deployments-channel
+#   - type: slack
+#     targets:
+#       - deployments-channel
