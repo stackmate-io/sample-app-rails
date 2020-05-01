@@ -96,9 +96,11 @@ production:
       emails:
         - cloudwareventuresdotcom@gmail.com
       environment:
-        SES_ACCESS_KEY_ID: '{{username}}'
-        SES_SECRET_ACCESS_KEY: '{{secret}}'
-        SES_ENDPOINT: '{{host}}'
+        SMTP_PORT: '{{port}}'
+        SMTP_HOST: '{{email-smtp.eu-central-1.amazonaws.com}}'
+        SMTP_USERNAME: '{{smtp_username}}'
+        SMTP_PASSWORD: '{{smtp_password}}'
+        SMTP_DOMAIN: 'rails.ezploy.eu'
 
     - type: elasticstorage
       name: rails-assets-ezploy-eu
