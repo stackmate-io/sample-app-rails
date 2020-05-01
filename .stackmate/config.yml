@@ -1,13 +1,8 @@
 ---
-# Stackmate project configuration
 framework: rails
-# The repository to deploy from
 repository: git@github.com:stackmate-io/sample-app-rails.git
-# The cloud provider to use
 provider: aws
-# The region to deploy to
 region: eu-central-1
-# The provider credentials to use
 providers:
   aws:
     access_key: "{{ lookup('env', 'STACKMATE_ACCESS_KEY') }}"
@@ -24,16 +19,11 @@ providers:
     access_key: apikey
     secret: "{{ lookup('env', 'STACKMATE_SENDGRID_TOKEN') }}"
 
-# environments
 production:
-  # branch to deploy
   branch: master
-  # domain to use
   domain: rails.ezploy.eu
-  # documentroot in the servers
   documentroot: /var/www/rails-app
 
-  # environment variables
   environment:
     CDN_HOST: cdn.ezploy.eu
     RAILS_ENV: production
@@ -44,7 +34,6 @@ production:
   #     target: config/master.key
   #     application: true
 
-  # deployment pipeline
   pipeline:
     build:
       - ./bin/bundle config cache_path /var/www/rails-app/cache
@@ -64,7 +53,6 @@ production:
     - source: public/
       bucket: rails-assets-ezploy-eu
 
-  # services to use
   services:
     - name: rails-app-server
       type: application
@@ -106,9 +94,9 @@ production:
       type: mailer
       domain: rails.ezploy.eu
       emails:
-        - no-reply@rails.ezploy.eu
+        - cloudwareventuresdotcom@gmail.com
       environment:
-        SES_ACCESS_KEY_ID: '{{key_id}}'
+        SES_ACCESS_KEY_ID: '{{username}}'
         SES_SECRET_ACCESS_KEY: '{{secret}}'
 
     - type: elasticstorage
@@ -117,11 +105,11 @@ production:
       cdn: true
       domain: cdn.ezploy.eu
 
-# notifications:
-#   - type: email
-#     targets:
-#       - stackmateuser@mailinator.com
+notifications:
+  - type: email
+    targets:
+      - stackmateuser@mailinator.com
 
-#   - type: slack
-#     targets:
-#       - deployments-channel
+  - type: slack
+    targets:
+      - deployments-channel
