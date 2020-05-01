@@ -17,5 +17,7 @@ module Railsapp
     # the framework and any gems in your application.
     config.autoload_paths += %W(#{config.root}/app/workers)
     config.eager_load_paths += %W(#{config.root}/app/workers)
+
+    config.action_mailer.delivery_method = :ses
   end
 end

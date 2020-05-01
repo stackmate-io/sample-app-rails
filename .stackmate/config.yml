@@ -48,7 +48,7 @@ production:
   pipeline:
     build:
       - ./bin/bundle config cache_path /var/www/rails-app/cache
-      - ./bin/bundle package --all
+      - ./bin/bundle package --no-prune --all
       - ./bin/bundle install --local --deployment --without development test --jobs 5
       - ./bin/rails assets:precompile
     db:migrate:
@@ -61,7 +61,7 @@ production:
         - nginx
 
   statics:
-    - source: public/assets
+    - source: public/
       bucket: rails-assets-ezploy-eu
 
   # services to use
@@ -105,9 +105,11 @@ production:
     - name: mailer
       type: mailer
       domain: rails.ezploy.eu
+      emails:
+        - no-reply@rails.ezploy.eu
       environment:
-        ACCESS_KEY: '{{username}}'
-        ACCESS_SECRET: '{{secret}}'
+        SES_ACCESS_KEY_ID: '{{key_id}}'
+        SES_SECRET_ACCESS_KEY: '{{secret}}'
 
     - type: elasticstorage
       name: rails-assets-ezploy-eu
