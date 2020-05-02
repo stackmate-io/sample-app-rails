@@ -29,10 +29,10 @@ production:
     RAILS_ENV: production
     SECRET_KEY_BASE: 78e078fd223a2904d26de6b1d46a8418
 
-  # configfiles:
-  #   - source: production.master.key
-  #     target: config/master.key
-  #     application: true
+  configfiles:
+    - source: production.master.key
+      target: config/master.key
+      application: true
 
   pipeline:
     build:
@@ -97,7 +97,7 @@ production:
         - cloudwareventuresdotcom@gmail.com
       environment:
         SMTP_PORT: '{{port}}'
-        SMTP_HOST: '{{email-smtp.eu-central-1.amazonaws.com}}'
+        SMTP_HOST: '{{smtp_host}}'
         SMTP_USERNAME: '{{smtp_username}}'
         SMTP_PASSWORD: '{{smtp_password}}'
         SMTP_DOMAIN: 'rails.ezploy.eu'
