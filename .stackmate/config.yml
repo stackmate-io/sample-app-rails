@@ -37,7 +37,7 @@ production:
   pipeline:
     build:
       - ./bin/bundle config cache_all true
-      - BUNDLE_CACHE_PATH=/var/www/rails-app/cache ./bin/bundle install --local --deployment --without development test --jobs 10
+      - BUNDLE_CACHE_PATH=/var/www/rails-app/cache ./bin/bundle install --deployment --without development test --jobs 10
       - ./bin/bundle cache
       - ./bin/rails assets:precompile
     db:migrate:
