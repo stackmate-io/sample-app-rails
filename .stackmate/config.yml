@@ -36,10 +36,14 @@ production:
 
   pipeline:
     build:
-      - ./bin/bundle config cache_all true
-      - BUNDLE_CACHE_PATH=/var/www/rails-app/cache ./bin/bundle install --deployment --without development test --jobs 10
-      - ./bin/bundle cache
+      - mkdir -p /var/www/rails-app/cache/bundle/
+      - mkdir -p /var/www/rails-app/cache/node_modules/
+      - rsync -r /var/www/rails-app/cache/bundle/ ./vendor/bundle/
+      - ./bin/bundle install --deployment --without development test --jobs 10
+      - rsync -r ./vendor/ /var/www/rails-app/cache/
+      - rsync -r /var/www/rails-app/cache/node_modules/ ./
       - ./bin/rails assets:precompile
+      - rsync -r ./node_modules/ /var/www/rails-app/cache/
     db:migrate:
       - ./bin/rails db:migrate
     after:
@@ -107,6 +111,12 @@ production:
       public: true
       cdn: true
       domain: cdn.ezploy.eu
+
+    - type: volumes
+      name: media-volume
+      mount: /opt/shared-media
+      groups:
+        - application
 
 # notifications:
 #   - type: email

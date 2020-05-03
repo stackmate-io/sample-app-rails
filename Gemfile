@@ -29,6 +29,7 @@ gem 'aws-ses', require: 'aws/ses'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
+gem 'puma', require: false
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'msgpack', '~> 1.3.3'
