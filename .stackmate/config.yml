@@ -60,7 +60,7 @@ production:
   services:
     - name: rails-app-server
       type: application
-      size: t2.micro
+      size: t2.nano
       dependencies:
         - type: ruby
           version: 2.5.8
