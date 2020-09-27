@@ -28,6 +28,7 @@ production:
     CDN_HOST: cdn.ezploy.eu
     RAILS_ENV: production
     SECRET_KEY_BASE: 78e078fd223a2904d26de6b1d46a8418
+    MALLOC_ARENA_MAX: 2
 
   configfiles:
     - source: production.master.key
